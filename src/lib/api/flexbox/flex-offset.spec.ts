@@ -72,13 +72,29 @@ describe('flex-offset directive', () => {
       let dom = fixture.debugElement.children[0];
       expectEl(dom).toHaveStyle({'margin-left': '32px'}, styler);
       if (platform.BLINK) {
-        expectEl(dom).toHaveStyle({'flex': '1 1 1e-09px'}, styler);
+        expectEl(dom).toHaveStyle({
+          'flex-grow': '1',
+          'flex-shrink': '1',
+          'flex-basis': '1e-09px'
+        }, styler);
       } else if (platform.FIREFOX) {
-        expectEl(dom).toHaveStyle({'flex': '1 1 1e-9px'}, styler);
+        expectEl(dom).toHaveStyle({
+          'flex-grow': '1',
+          'flex-shrink': '1',
+          'flex-basis': '1e-9px'
+        }, styler);
       } else if (platform.EDGE || platform.TRIDENT) {
-        expectEl(dom).toHaveStyle({'flex': '1 1 0px'}, styler);
+        expectEl(dom).toHaveStyle({
+          'flex-grow': '1',
+          'flex-shrink': '1',
+          'flex-basis': '0px'
+        }, styler);
       } else {
-        expectEl(dom).toHaveStyle({'flex': '1 1 0.000000001px'}, styler);
+        expectEl(dom).toHaveStyle({
+          'flex-grow': '1',
+          'flex-shrink': '1',
+          'flex-basis': '0.000000001px'
+        }, styler);
       }
     });
 
@@ -86,7 +102,9 @@ describe('flex-offset directive', () => {
     it('should work with percentage values', () => {
       componentWithTemplate(`<div fxFlexOffset='17' fxFlex='37'></div>`);
       expectNativeEl(fixture).toHaveStyle({
-        'flex': '1 1 100%',
+        'flex-grow': '1',
+        'flex-shrink': '1',
+        'flex-basis': '100%',
         'box-sizing': 'border-box',
         'margin-left': '17%'
       }, styler);
@@ -153,7 +171,9 @@ describe('flex-offset directive', () => {
         `);
       expectNativeEl(fixture).not.toHaveStyle({
         'flex-direction': 'row',
-        'flex': '1 1 100%',
+        'flex-grow': '1',
+        'flex-shrink': '1',
+        'flex-basis': '100%',
         'margin-left': '52px',
       }, styler);
     });
